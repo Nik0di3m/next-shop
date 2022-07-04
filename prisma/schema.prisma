@@ -34,7 +34,14 @@ model Profile {
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique @db.VarChar(255)
+  pass    String   @unique @db.VarChar(255)
   name    String?  @db.VarChar(255)
   posts   Post[]
   profile Profile?
+  role    Role @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
 }
