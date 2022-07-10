@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import LoginForm from "../components/LoginForm/LoginForm";
 
 const Home: NextPage = () => {
     return (
@@ -13,11 +12,16 @@ const Home: NextPage = () => {
                 />
                 <link rel="icon" href="/favico.ico" />
             </Head>
-            <main>
-                <div className="flex items-center justify-center w-screen h-screen">
-                    <LoginForm />
+            <div className="flex w-full h-[200vh]">
+                <div className="w-2/12">
+                    <div className="fixed w-2/12 h-screen bg-zinc-800">
+                        <h1>menu</h1>
+                    </div>
                 </div>
-            </main>
+                <div className="flex-grow">
+                    <h1>conteiner</h1>
+                </div>
+            </div>
         </>
     );
 };

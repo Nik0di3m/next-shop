@@ -1,95 +1,88 @@
-import {
-    Container,
-    Card,
-    Row,
-    Input,
-    Grid,
-    Button,
-    Text,
-} from '@nextui-org/react'
-import React, { useState } from 'react'
-
+import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import Input from "../Input/Input";
 interface LoginData {
-    login: string
-    password: string
+    email: string;
+    password: string;
 }
 
 const LoginForm = () => {
     const [userData, setUserData] = useState<LoginData>({
-        login: '',
-        password: '',
-    })
+        email: "",
+        password: "",
+    });
+
+    const router = useRouter();
+
+    const sendLoginForm = async (e: React.FormEvent) => {
+        e.preventDefault();
+        await axios
+            .post(`/api/login`, {
+                email: userData.email,
+                password: userData.password,
+            })
+            .then((res) => {
+                router.push("/admin");
+            })
+            .catch((err) => {
+                alert("Bad credentials");
+            });
+    };
+
+    const handleChangeLogin = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setUserData((prev) => ({
+            ...prev,
+            email: e.target.value,
+        }));
+    };
+
+    const handleChangePassword = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setUserData((prev) => ({
+            ...prev,
+            password: e.target.value,
+        }));
+    };
 
     return (
-        <Container
-            display="flex"
-            justify="center"
-            alignItems="center"
-            css={{ h: '100vh' }}>
-            <Card variant="bordered" css={{ mw: '400px' }}>
-                <Card.Header>
-                    <Container>
-                        <Row>
-                            <Text>NextShop CMS</Text>
-                        </Row>
-                    </Container>
-                </Card.Header>
-                <Card.Body>
-                    <Container>
-                        <Input
-                            width="100%"
-                            color="primary"
-                            placeholder="Login"
-                            bordered
-                            aria-label="Login"
-                            shadow
-                            css={{ mb: '$10' }}
-                            onChange={(e) =>
-                                setUserData((prev) => ({
-                                    ...prev,
-                                    login: e.target.value,
-                                }))
-                            }
-                        />
-                        <Input.Password
-                            width="100%"
-                            color="primary"
-                            placeholder="Password"
-                            aria-label="Password"
-                            bordered
-                            shadow
-                            onChange={(e) =>
-                                setUserData((prev) => ({
-                                    ...prev,
-                                    password: e.target.value,
-                                }))
-                            }
-                        />
-                        <Grid.Container
-                            justify="space-between"
-                            css={{ px: '0', mt: '$10' }}>
-                            <Grid>
-                                <Button flat color="warning" auto>
-                                    Wróć
-                                </Button>
-                            </Grid>
-                            <Grid>
-                                <Button
-                                    onClick={() =>
-                                        console.log(userData)
-                                    }
-                                    flat
-                                    color="success"
-                                    auto>
-                                    Zaloguj
-                                </Button>
-                            </Grid>
-                        </Grid.Container>
-                    </Container>
-                </Card.Body>
-            </Card>
-        </Container>
-    )
-}
+        <div className="px-4 py-6 border rounded-md w-[400px] bg-zinc-800 shadow-md">
+            <div>
+                <h1 className="text-xl">Next E-commerce</h1>
+            </div>
+            <form
+                onSubmit={(e) => sendLoginForm(e)}
+                className="w-full mt-8 space-y-3"
+            >
+                <div>
+                    <Input onChange={handleChangeLogin} />
+                </div>
+                <div>
+                    <Input
+                        type="password"
+                        onChange={handleChangePassword}
+                    />
+                </div>
+                <div className="flex items-center justify-between">
+                    <button
+                        type="reset"
+                        className="px-5 py-3 duration-150 bg-yellow-800 rounded-md shadow-md hover:scale-105 active:scale-75"
+                    >
+                        Wróć
+                    </button>
+                    <button
+                        type="submit"
+                        className="px-5 py-3 duration-150 bg-green-800 rounded-md shadow-md hover:scale-105 active:scale-75"
+                    >
+                        Zaloguj
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
+};
 
-export default LoginForm
+export default LoginForm;

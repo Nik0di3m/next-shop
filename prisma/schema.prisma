@@ -39,7 +39,6 @@ model User {
   posts   Post[]
   profile Profile?
   role    Role @default(USER)
-  test    String @db.VarChar(255)
 }
 
 enum Role {

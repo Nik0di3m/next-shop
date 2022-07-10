@@ -6,13 +6,26 @@ export default async function handler(
     res: NextApiResponse
 ) {
     const { method } = req;
+    const { email, password } = req.body;
 
     switch (method) {
-        case "GET":
+        case "POST":
             try {
-                const users = await prisma.user.findMany();
-                res.status(200).json({ users: users });
-                console.error("ok");
+                const users = await prisma.user.findUnique({
+                    where: {
+                        email,
+                    },
+                });
+                if (users?.pass === password) {
+                    return res
+                        .status(202)
+                        .json({ users, ok: true });
+                } else {
+                    console.error("nie ma");
+                    return res
+                        .status(401)
+                        .end(`Bad login or password`);
+                }
             } catch (e) {
                 console.error("Request error", e);
             }
