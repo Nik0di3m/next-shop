@@ -9,13 +9,10 @@ export default async function handler(
     const { login, password } = req.body
 
     switch (method) {
-        case 'POST':
+        case 'GET':
             try {
-                const users = await prisma.user.findUnique({
-                    where: {
-                        email: login,
-                    },
-                })
+                const users = await prisma.user.findMany()
+
                 res.status(200).json({ users: users })
                 console.error('ok')
             } catch (e) {

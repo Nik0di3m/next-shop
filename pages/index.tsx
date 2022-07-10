@@ -1,9 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import LoginForm from '../components/LoginForm/LoginForm'
 
 const Home: NextPage = () => {
     return (
-        <div>
+        <>
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -12,10 +13,8 @@ const Home: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div>
-                <h1 className="text-xl">Hello World</h1>
-            </div>
-        </div>
+            <LoginForm />
+        </>
     )
 }
 
