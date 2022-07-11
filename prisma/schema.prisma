@@ -12,36 +12,12 @@ datasource db {
 }
 
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-}
-
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
-}
-
-
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique @db.VarChar(255)
-  pass    String   @db.VarChar(255)
-  name    String?  @db.VarChar(255)
-  posts   Post[]
-  profile Profile?
-  role    Role @default(USER)
-}
-
-enum Role {
-  USER
-  ADMIN
+  Id            Int         @id @default(autoincrement())
+  registeredAt  DateTime    @default(now())
+  firstName     String      @db.VarChar(250)
+  lastName      String      @db.VarChar(250)
+  email         String      @db.VarChar(250)
+  password      String      @db.VarChar(250)
+  isActive      String      @default("1") @db.Char(1)
 }

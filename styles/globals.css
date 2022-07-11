@@ -10,6 +10,6 @@
         font-family: "Inter", sans-serif;
     }
     body {
-        @apply dark:bg-zinc-900 dark:text-gray-50 dark:selection:bg-pink-400;
+        @apply dark:bg-neutral-900 dark:text-gray-50 dark:selection:bg-pink-400;
     }
 }

@@ -1,7 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import Menu from "../../components/Menu/Menu";
 const Home: NextPage = () => {
+    const { data: session, status } = useSession();
+    console.log(status, session);
+
+    if (status === "unauthenticated") {
+        const router = useRouter();
+        router.push("/");
+    }
+
     return (
         <>
             <Head>
@@ -13,13 +23,16 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favico.ico" />
             </Head>
             <div className="flex w-full h-[200vh]">
-                <div className="w-2/12">
-                    <div className="fixed w-2/12 h-screen bg-zinc-800">
+                <div className="w-[12%]">
+                    <div className="fixed w-[12%] h-screen bg-neutral-800 border-r border-zinc-900">
                         <h1>menu</h1>
                     </div>
                 </div>
                 <div className="flex-grow">
-                    <h1>conteiner</h1>
+                    <Menu />
+                    <p>
+                        Signed in as {session?.user?.email}
+                    </p>
                 </div>
             </div>
         </>

@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Input from "../Input/Input";
-import { signIn } from "next-auth/react";
-
 interface LoginData {
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
 }
 
-const LoginForm = () => {
+const SignUpForm: React.FC = () => {
     const [userData, setUserData] = useState<LoginData>({
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
     });
@@ -19,29 +21,43 @@ const LoginForm = () => {
 
     const sendLoginForm = async (e: React.FormEvent) => {
         e.preventDefault();
-        e.stopPropagation();
-        signIn("credentials", {
-            email: userData.email,
-            password: userData.password,
-            callbackUrl: `${window.location.origin}/admin`,
-            redirect: false,
-        }).then(function (result) {
-            if (result?.error !== null) {
-                if (result?.status === 401) {
-                    console.log(
-                        "Login failed",
-                        result.error
-                    );
-                } else {
-                    console.log(
-                        "Login failed",
-                        result?.error
-                    );
-                }
-            } else {
-                router.push("/admin");
-            }
-        });
+        await axios
+            .post(`/api/auth/sign-up`, {
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                password: userData.password,
+            })
+            .then((res) => {
+                console.log(res);
+                setUserData({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    password: "",
+                });
+            })
+            .catch((err) => {
+                alert("Bad credentials");
+            });
+    };
+
+    const handleChangeFirstName = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setUserData((prev) => ({
+            ...prev,
+            firstName: e.target.value,
+        }));
+    };
+
+    const handleChangeLastName = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setUserData((prev) => ({
+            ...prev,
+            lastName: e.target.value,
+        }));
     };
 
     const handleChangeLogin = (
@@ -65,7 +81,7 @@ const LoginForm = () => {
     return (
         <div className="px-4 py-6 border rounded-md w-[400px] bg-zinc-800 shadow-md">
             <div>
-                <h1 className="text-xl">Next E-commerce</h1>
+                <h1 className="text-xl">SignUp</h1>
             </div>
             <form
                 onSubmit={(e) => sendLoginForm(e)}
@@ -73,7 +89,19 @@ const LoginForm = () => {
             >
                 <div>
                     <Input
-                        placeholder="Enter your email address"
+                        placeholder="Enter First Name"
+                        onChange={handleChangeFirstName}
+                    />
+                </div>
+                <div>
+                    <Input
+                        placeholder="Enter Last Name"
+                        onChange={handleChangeLastName}
+                    />
+                </div>
+                <div>
+                    <Input
+                        placeholder="Enter Email"
                         onChange={handleChangeLogin}
                     />
                 </div>
@@ -102,4 +130,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default SignUpForm;
