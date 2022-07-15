@@ -1,15 +1,41 @@
-import { HomeIcon } from "@heroicons/react/outline";
+import {
+    ChartSquareBarIcon,
+    HomeIcon,
+    ShoppingBagIcon,
+    UserCircleIcon,
+    UserGroupIcon,
+} from "@heroicons/react/outline";
+import { link } from "fs";
 import React from "react";
+import SideMenuItem from "./SideMenuItem";
 
 const SideMenu = () => {
     return (
-        <aside className="flex flex-col items-center pt-4">
-            <div className="flex items-center justify-between w-4/5 px-4 py-2 duration-150 border rounded-lg shadow-md cursor-pointer hover:-translate-y-1 hover:border-sky-700">
-                <div>
-                    <HomeIcon className="w-6 h-6" />
-                </div>
-                <span>Dashoboard</span>
-            </div>
+        <aside className="flex flex-col items-center pt-4 space-y-5">
+            <SideMenuItem
+                text="Home"
+                icon={<HomeIcon className="w-6 h-6" />}
+                link="#"
+            />
+            <SideMenuItem
+                text="Products"
+                icon={
+                    <ShoppingBagIcon className="w-6 h-6" />
+                }
+                link="#"
+            />
+            <SideMenuItem
+                text="Customers"
+                icon={<UserGroupIcon className="w-6 h-6" />}
+                link="#"
+            />
+            <SideMenuItem
+                text="Income"
+                icon={
+                    <ChartSquareBarIcon className="w-6 h-6" />
+                }
+                link="#"
+            />
         </aside>
     );
 };
