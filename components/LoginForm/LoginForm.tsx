@@ -20,10 +20,10 @@ const LoginForm = () => {
     const sendLoginForm = async (e: React.FormEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        signIn("credentials", {
+        await signIn("credentials", {
             email: userData.email,
             password: userData.password,
-            callbackUrl: `${window.location.origin}/admin`,
+            callbackUrl: `/admin`,
             redirect: false,
         }).then(function (result) {
             if (result?.error !== null) {

@@ -3,12 +3,15 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Menu from "../../components/Menu/Menu";
+import SideMenu from "../../components/Menu/SideMenu";
+
 const Home: NextPage = () => {
     const { data: session, status } = useSession();
-    console.log(status, session);
+    console.log("status:", status, session);
+
+    const router = useRouter();
 
     if (status === "unauthenticated") {
-        const router = useRouter();
         router.push("/");
     }
 
@@ -25,14 +28,11 @@ const Home: NextPage = () => {
             <div className="flex w-full h-[200vh]">
                 <div className="w-[12%]">
                     <div className="fixed w-[12%] h-screen bg-neutral-800 border-r border-zinc-900">
-                        <h1>menu</h1>
+                        <SideMenu />
                     </div>
                 </div>
                 <div className="flex-grow">
                     <Menu />
-                    <p>
-                        Signed in as {session?.user?.email}
-                    </p>
                 </div>
             </div>
         </>

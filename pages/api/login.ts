@@ -16,7 +16,7 @@ export default async function handler(
                         email,
                     },
                 });
-                if (users?.pass === password) {
+                if (users?.password === password) {
                     return res
                         .status(202)
                         .json({ users, ok: true });
