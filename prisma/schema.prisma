@@ -10,18 +10,18 @@ datasource db {
 }
 
 model Account {
-  id                 Int  @id @default(autoincrement())
-  userId             Int
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                Int     @id @default(autoincrement())
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -29,7 +29,7 @@ model Account {
 }
 
 model Session {
-  id           Int  @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   sessionToken String   @unique
   userId       Int
   expires      DateTime
@@ -37,7 +37,7 @@ model Session {
 }
 
 model User {
-  id            Int    @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   name          String?
   email         String?   @unique
   password      String?
@@ -53,4 +53,37 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Product {
+  id            Int         @id @default(autoincrement())
+  name          String
+  slug          String      @unique
+  price         Decimal
+  quantity      Int         @default(0)
+  image         Json?
+  description   String?     @db.Text
+  isNew         Boolean     @default(false)
+  isFutures     Boolean     @default(false)
+  isBestsellers Boolean     @default(false)
+  addDate       DateTime    @default(now())
+  categoryId    Int?
+  attribiutesId Int?
+  category      Category?   @relation(fields: [categoryId], references: [id])
+  attribiutes   Attributes? @relation(fields: [attribiutesId], references: [id])
+
+
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Product Product[]
+}
+
+model Attributes {
+  id      Int       @id @default(autoincrement())
+  name    String
+  value   String
+  Product Product[]
 }

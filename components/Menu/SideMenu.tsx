@@ -2,10 +2,8 @@ import {
     ChartSquareBarIcon,
     HomeIcon,
     ShoppingBagIcon,
-    UserCircleIcon,
     UserGroupIcon,
 } from "@heroicons/react/outline";
-import { link } from "fs";
 import React from "react";
 import SideMenuItem from "./SideMenuItem";
 
@@ -15,14 +13,14 @@ const SideMenu = () => {
             <SideMenuItem
                 text="Home"
                 icon={<HomeIcon className="w-6 h-6" />}
-                link="#"
+                link="/admin"
             />
             <SideMenuItem
                 text="Products"
                 icon={
                     <ShoppingBagIcon className="w-6 h-6" />
                 }
-                link="#"
+                link="/admin/products"
             />
             <SideMenuItem
                 text="Customers"

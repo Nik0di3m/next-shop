@@ -7,7 +7,7 @@ const Menu = () => {
     const { data } = useSession();
     console.log(data);
     return (
-        <header className="sticky top-0 flex items-center justify-between h-20 px-3 py-4 border-b shadow-sm bg-neutral-800 border-zinc-900">
+        <header className="sticky top-0 z-50 flex items-center justify-between h-20 px-3 py-4 border-b shadow-sm bg-neutral-800 border-zinc-900">
             <div>
                 <Input placeholder="Enter search term..." />
             </div>
