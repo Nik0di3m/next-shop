@@ -1,8 +1,42 @@
 import type { NextPage } from "next";
+import { signIn } from "next-auth/react";
 import Head from "next/head";
-import LoginForm from "../components/LoginForm/LoginForm";
+import { useRouter } from "next/router";
+import { FormEvent, useState } from "react";
+import Button from "../components/Button/Button";
+import Input from "../components/Input/Input";
+import SignLayout from "../components/Layout/SignLayout";
 
 const Home: NextPage = () => {
+    const [userEmail, setUserEmail] = useState<string>("");
+    const [userPassword, setUserPassword] = useState<string>("");
+
+    const router = useRouter();
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        console.log(userEmail);
+        console.log(userPassword);
+        setUserEmail("");
+        setUserPassword("");
+        await signIn("credentials", {
+            email: userEmail,
+            password: userPassword,
+            callbackUrl: `/admin`,
+            redirect: false,
+        }).then(function (result) {
+            if (result?.error !== null) {
+                if (result?.status === 401) {
+                    console.log("Login failed", result.error);
+                } else {
+                    console.log("Login failed", result?.error);
+                }
+            } else {
+                router.push("/admin");
+            }
+        });
+    };
+
     return (
         <>
             <Head>
@@ -13,11 +47,38 @@ const Home: NextPage = () => {
                 />
                 <link rel="icon" href="/favico.ico" />
             </Head>
-            <main>
-                <div className="flex items-center justify-center w-screen h-screen">
-                    <LoginForm />
+            <SignLayout>
+                <div className="pt-10">
+                    <h1 className="text-3xl">
+                        Welcome Back, Pleas login
+                        <br />
+                        to your account
+                    </h1>
+                    <div className="pt-8">
+                        <form
+                            className="space-y-5"
+                            onSubmit={(e) => handleSubmit(e)}
+                        >
+                            <Input
+                                id="email"
+                                name="email"
+                                placeholder="E-mail"
+                                value={userEmail}
+                                onChange={(string) => setUserEmail(string)}
+                            />
+                            <Input
+                                id="password"
+                                name="password"
+                                placeholder="Password"
+                                type="password"
+                                value={userPassword}
+                                onChange={(string) => setUserPassword(string)}
+                            />
+                            <Button type="submit">Sign In</Button>
+                        </form>
+                    </div>
                 </div>
-            </main>
+            </SignLayout>
         </>
     );
 };

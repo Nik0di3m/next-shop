@@ -14,7 +14,7 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favico.ico" />
             </Head>
             <main>
-                <div className="flex items-center justify-center w-screen h-screen">
+                <div className="flex items-center justify-center w-screen h-screen bg-black-900">
                     <LoginForm />
                 </div>
             </main>
