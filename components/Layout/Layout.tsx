@@ -1,18 +1,26 @@
-import React, { ReactNode } from 'react'
-import Header from '../Header/Header'
+import React, { ReactNode } from "react";
+import Header from "../Header/Header";
+import Menu from "../Menu/Menu";
+import SideMenu from "../Menu/SideMenu";
 
 interface Props {
-    children: ReactNode
+    children: ReactNode;
 }
 
 const Layout = ({ children }: Props) => {
     return (
-        <>
-            <Header logo="/vercel.svg" />
-            <main>{children}</main>
-            <footer>footer</footer>
-        </>
-    )
-}
+        <div className="flex w-full h-[200vh]">
+            <div className="min-w-[12%]">
+                <div className="fixed w-[12%] h-screen bg-neutral-800 border-r border-zinc-900">
+                    <SideMenu />
+                </div>
+            </div>
+            <div className="flex-grow">
+                <Menu />
+                {children}
+            </div>
+        </div>
+    );
+};
 
-export default Layout
+export default Layout;

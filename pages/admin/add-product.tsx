@@ -7,6 +7,7 @@ import SideMenu from "../../components/Menu/SideMenu";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import axios from "axios";
+import Layout from "../../components/Layout/Layout";
 
 interface ProductData {
     title: string;
@@ -20,8 +21,9 @@ interface ProductData {
 }
 
 const AddProduct: NextPage = () => {
-    const [productData, setProductData] =
-        useState<ProductData>({} as ProductData);
+    const [productData, setProductData] = useState<ProductData>(
+        {} as ProductData
+    );
 
     const { data: session, status } = useSession();
     console.log("status:", status, session);
@@ -49,244 +51,12 @@ const AddProduct: NextPage = () => {
                 />
                 <link rel="icon" href="/favico.ico" />
             </Head>
-            <div className="flex w-full h-[200vh]">
-                <div className="w-[12%]">
-                    <div className="fixed w-[12%] h-screen bg-neutral-800 border-r border-zinc-900">
-                        <SideMenu />
-                    </div>
+            <Layout>
+                <div className="p-10">
+                    <h1 className="text-2xl font-bold">Nowy produkt</h1>
+                    <div className="bg-neutral-800">sdf</div>
                 </div>
-                <div className="flex-grow">
-                    <Menu />
-                    <div className="p-10">
-                        <div className="p-5 rounded-md bg-neutral-800">
-                            <h1 className="text-3xl">
-                                Nowy Produkt
-                            </h1>
-                            <div className="mt-8">
-                                <div className="mt-5 space-y-5">
-                                    <div>
-                                        <label className="flex flex-col">
-                                            Nazwa produktu
-                                            <input
-                                                type="text"
-                                                name=""
-                                                id=""
-                                                spellCheck
-                                                value={
-                                                    productData?.title
-                                                }
-                                                onChange={(
-                                                    e
-                                                ) => {
-                                                    setProductData(
-                                                        (
-                                                            prev
-                                                        ) => ({
-                                                            ...prev,
-                                                            title: e
-                                                                .target
-                                                                .value,
-                                                        })
-                                                    );
-                                                }}
-                                                placeholder="Nazwa produktu..."
-                                                className="h-10 px-3 mt-3 duration-150 border-none rounded-md shadow-md bg-neutral-700 focus:outline-pink-600 focus:outline outline-1 focus:bg-neutral-900"
-                                            />
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label className="flex flex-col">
-                                            Opis produktu
-                                        </label>
-                                        <textarea
-                                            name=""
-                                            id=""
-                                            placeholder="Opis produktu..."
-                                            spellCheck
-                                            value={
-                                                productData?.description
-                                            }
-                                            onChange={(e) =>
-                                                setProductData(
-                                                    (
-                                                        prev
-                                                    ) => ({
-                                                        ...prev,
-                                                        description:
-                                                            e
-                                                                .target
-                                                                .value,
-                                                    })
-                                                )
-                                            }
-                                            className="w-full p-3 mt-3 duration-150 border-none rounded-md shadow-md resize-none h-60 bg-neutral-700 focus:outline-pink-600 focus:outline outline-1 focus:bg-neutral-900"
-                                        ></textarea>
-                                    </div>
-                                    <div className="flex items-end gap-5">
-                                        <label className="flex flex-col">
-                                            Cena
-                                            <input
-                                                type="number"
-                                                min={0}
-                                                step={0.01}
-                                                placeholder="0PLN"
-                                                value={
-                                                    productData?.price
-                                                }
-                                                onChange={(
-                                                    e
-                                                ) =>
-                                                    setProductData(
-                                                        (
-                                                            prev
-                                                        ) => ({
-                                                            ...prev,
-                                                            price: parseFloat(
-                                                                e
-                                                                    .target
-                                                                    .value
-                                                            ),
-                                                        })
-                                                    )
-                                                }
-                                                className="w-20 h-8 px-1 rounded-md bg-neutral-700 focus:bg-neutral-900 focus:outline-pink-600 focus:outline outline-1"
-                                            />
-                                        </label>
-                                        <label className="flex flex-col">
-                                            Qty
-                                            <input
-                                                type="number"
-                                                min={0}
-                                                step={1}
-                                                value={
-                                                    productData.qty
-                                                }
-                                                onChange={(
-                                                    e
-                                                ) =>
-                                                    setProductData(
-                                                        (
-                                                            prev
-                                                        ) => ({
-                                                            ...prev,
-                                                            qty: parseInt(
-                                                                e
-                                                                    .target
-                                                                    .value
-                                                            ),
-                                                        })
-                                                    )
-                                                }
-                                                placeholder="0"
-                                                className="w-20 h-8 px-1 rounded-md bg-neutral-700 focus:bg-neutral-900 focus:outline-pink-600 focus:outline outline-1"
-                                            />
-                                        </label>
-                                        <label className="flex flex-col">
-                                            Nowy
-                                            <select
-                                                name="isnew"
-                                                id=""
-                                                onChange={(
-                                                    e
-                                                ) =>
-                                                    setProductData(
-                                                        (
-                                                            prev
-                                                        ) => ({
-                                                            ...prev,
-                                                            isNew: JSON.parse(
-                                                                e
-                                                                    .target
-                                                                    .value
-                                                            ),
-                                                        })
-                                                    )
-                                                }
-                                                className="w-20 h-8 rounded-md bg-neutral-700 focus:bg-neutral-900 focus:outline-pink-600 focus:outline outline-1"
-                                            >
-                                                <option
-                                                    className="hover:bg-pink-700"
-                                                    value="false"
-                                                >
-                                                    false
-                                                </option>
-                                                <option value="true">
-                                                    true
-                                                </option>
-                                            </select>
-                                        </label>
-                                        <label className="flex flex-col">
-                                            Bestseller
-                                            <select
-                                                name="isnew"
-                                                id=""
-                                                onChange={(
-                                                    e
-                                                ) =>
-                                                    setProductData(
-                                                        (
-                                                            prev
-                                                        ) => ({
-                                                            ...prev,
-                                                            isBestseller:
-                                                                JSON.parse(
-                                                                    e
-                                                                        .target
-                                                                        .value
-                                                                ),
-                                                        })
-                                                    )
-                                                }
-                                                className="w-20 h-8 rounded-md bg-neutral-700 focus:bg-neutral-900 focus:outline-pink-600 focus:outline outline-1"
-                                            >
-                                                <option
-                                                    className="hover:bg-pink-700"
-                                                    value="false"
-                                                >
-                                                    false
-                                                </option>
-                                                <option value="true">
-                                                    true
-                                                </option>
-                                            </select>
-                                        </label>
-                                        <label className="flex flex-col">
-                                            Slug
-                                            <input
-                                                type="text"
-                                                placeholder="/slug-product"
-                                                onChange={(
-                                                    e
-                                                ) =>
-                                                    setProductData(
-                                                        (
-                                                            prev
-                                                        ) => ({
-                                                            ...prev,
-                                                            slug: e
-                                                                .target
-                                                                .value,
-                                                        })
-                                                    )
-                                                }
-                                                className="h-8 px-1 rounded-md bg-neutral-700 focus:bg-neutral-900 focus:outline-pink-600 focus:outline outline-1"
-                                            />
-                                        </label>
-                                        <button
-                                            onClick={() =>
-                                                handleSaveProduct()
-                                            }
-                                            className="flex items-center justify-center w-8 h-8 duration-150 rounded-md shadow-md justify-self-end bg-sky-600 shadow-sky-600/40 hover:scale-105 active:scale-90"
-                                        >
-                                            <PlusCircleIcon className="w-6 h-6" />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </Layout>
         </>
     );
 };
