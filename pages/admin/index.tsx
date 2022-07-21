@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Layout from "../../components/Layout/Layout";
 
 const Home: NextPage = () => {
     const { data: session, status } = useSession();
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
                 />
                 <link rel="icon" href="/favico.ico" />
             </Head>
+            <Layout></Layout>
         </>
     );
 };
