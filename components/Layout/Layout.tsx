@@ -10,6 +10,7 @@ import Image from "next/image";
 import React, { ReactNode } from "react";
 import Logo from "../Icons/Logo";
 import SideMenuItem from "../Menu/SideMenuItem";
+import Switch from "../Switch/Switch";
 
 interface Props {
     children?: ReactNode;
@@ -54,21 +55,27 @@ const Layout = ({ children }: Props) => {
                     className="opacity-50"
                 />
             </div> */}
-            <div className="fixed top-0 left-0 w-1/6 h-screen border-r p-7 border-black-600 bg-black-700">
-                <div className="flex">
-                    <Logo fill="white" width={4} height={4} />
-                </div>
-                <div className="pt-8 space-y-7">
-                    {MenuItems.map((item: any, index: number) => (
-                        <SideMenuItem
-                            key={index}
-                            delay={index / 4}
-                            text={item.title}
-                            icon={item.icon}
-                        />
-                    ))}
+            <div className="w-1/6 max-h-screen">
+                <div className="fixed top-0 left-0 flex flex-col w-1/6 h-screen border-r p-7 border-black-600 dark:bg-black-700 bg-neutral-100">
+                    <div className="flex">
+                        <Logo fill="white" width={4} height={4} />
+                    </div>
+                    <div className="flex-grow pt-8 space-y-7">
+                        {MenuItems.map((item: any, index: number) => (
+                            <SideMenuItem
+                                key={index}
+                                delay={index / 4}
+                                text={item.title}
+                                icon={item.icon}
+                            />
+                        ))}
+                    </div>
+                    <div>
+                        <Switch />
+                    </div>
                 </div>
             </div>
+            {children}
         </div>
     );
 };
