@@ -23,8 +23,6 @@ const Layout = ({ children }: Props) => {
 
     const { theme, setTheme } = useTheme();
 
-    console.log(theme);
-
     useEffect(() => setLogoColor(theme), [theme]);
 
     return (

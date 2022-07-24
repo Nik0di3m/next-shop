@@ -6,13 +6,6 @@ import Layout from "../../components/Layout/Layout";
 
 const Home: NextPage = () => {
     const { data: session, status } = useSession();
-    console.log("status:", status, session);
-
-    const router = useRouter();
-
-    if (status === "unauthenticated") {
-        router.push("/");
-    }
 
     return (
         <>

@@ -15,8 +15,6 @@ const Home: NextPage = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log(userEmail);
-        console.log(userPassword);
         setUserEmail("");
         setUserPassword("");
         await signIn("credentials", {

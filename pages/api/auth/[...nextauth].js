@@ -15,7 +15,7 @@ export default NextAuth({
                     credentials.password
                 );
 
-                console.log(userFromDb.user);
+                // console.log(userFromDb.user);
 
                 if (userFromDb != null) {
                     return {
