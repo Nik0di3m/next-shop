@@ -20,7 +20,7 @@ export default NextAuth({
 
                 if (userFromDb != null) {
                     return {
-                        id: 3,
+                        id: userFromDb.user.id,
                         name: userFromDb.user.name,
                         email: userFromDb.user.email,
                         image: userFromDb.user.image,
