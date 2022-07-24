@@ -58,7 +58,7 @@ const SideMenuItem = ({
             animate={controls}
             whileHover={hoverAnimation}
             tabIndex={0}
-            className="flex items-center py-2 pl-10 space-x-8 border rounded-lg shadow-md cursor-pointer border-black-500"
+            className="flex items-center py-2 pl-10 space-x-8 border rounded-lg shadow-md cursor-pointer dark:border-black-500 border-neutral-300"
         >
             {icon}
             <span className="text-lg font-medium">{text}</span>

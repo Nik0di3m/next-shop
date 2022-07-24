@@ -25,7 +25,7 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favico.ico" />
             </Head>
             <Layout>
-                <div className="max-w-[1280px] w-full h-[50vh] bg-black-700 mx-auto"></div>
+                {/* <div className="max-w-[1280px] w-full h-[50vh] bg-black-700 mx-auto"></div> */}
             </Layout>
         </>
     );
