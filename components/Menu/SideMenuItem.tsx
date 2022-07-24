@@ -2,9 +2,10 @@ import { HomeIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { useRouter } from "next/router";
 
 interface SideMenuItemsProps {
-    link?: string;
+    link: string;
     icon?: React.ReactElement;
     onClick?: () => void;
     text?: string;
@@ -19,6 +20,8 @@ const SideMenuItem = ({
     onClick,
 }: SideMenuItemsProps) => {
     const controls = useAnimation();
+
+    const router = useRouter();
 
     const animation = {
         initial: {
@@ -51,6 +54,10 @@ const SideMenuItem = ({
         controls.start("animate");
     }, []);
 
+    const handleClick = () => {
+        router.push(link);
+    };
+
     return (
         <motion.div
             variants={animation}
@@ -58,6 +65,7 @@ const SideMenuItem = ({
             animate={controls}
             whileHover={hoverAnimation}
             tabIndex={0}
+            onClick={handleClick}
             className="flex items-center py-2 pl-10 space-x-8 border rounded-lg shadow-md cursor-pointer dark:border-black-500 border-neutral-300"
         >
             {icon}
