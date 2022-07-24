@@ -39,6 +39,7 @@ export default NextAuth({
             if (user) {
                 // console.log("User from nextauth jwt:", user);
                 token.id = user.id;
+                // Add role to token for user type middleware handler
                 token.role = user.role;
             }
 
@@ -47,7 +48,6 @@ export default NextAuth({
         session: ({ session, token }) => {
             if (token) {
                 // console.log("Token from nextauth session:", token);
-
                 session.id = token.id;
             }
 

@@ -1,10 +1,7 @@
 import { prisma } from "../lib/prisma";
 const bcrypt = require("bcrypt");
 
-export async function loginUser(
-    email: string,
-    password: string
-) {
+export async function loginUser(email: string, password: string) {
     try {
         const user = await prisma.user.findUnique({
             where: {
@@ -25,10 +22,10 @@ export async function loginUser(
             });
 
         if (!matched) {
-            console.log("Hasła nie maczują");
+            console.log("Decoder password dont matched to hash password");
             return null;
         }
-        console.log("Wszystko ok");
+        console.log("All its ok, welcome aboard!");
 
         return { user: { ...user, id: user.id } };
     } catch (error) {
