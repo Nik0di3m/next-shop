@@ -1,17 +1,9 @@
-import {
-    CashIcon,
-    HomeIcon,
-    PencilAltIcon,
-    PresentationChartLineIcon,
-    UserCircleIcon,
-    ViewGridAddIcon,
-} from "@heroicons/react/outline";
+import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
-import React, { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import AdminAvatar from "../Avatar/AdminAvatar";
 import Logo from "../Icons/Logo";
 import SideMenu from "../Menu/SideMenu";
-import SideMenuItem from "../Menu/SideMenuItem";
 import Switch from "../Switch/Switch";
 
 interface Props {
@@ -22,6 +14,8 @@ const Layout = ({ children }: Props) => {
     const [logoColor, setLogoColor] = useState<string | undefined>("");
 
     const { theme, setTheme } = useTheme();
+
+    const { data: session, status } = useSession();
 
     useEffect(() => setLogoColor(theme), [theme]);
 
@@ -42,8 +36,20 @@ const Layout = ({ children }: Props) => {
             </div>
 
             <div className="w-full">
-                <div className="sticky top-0 flex flex-grow h-20 border-b bg-neutral-50 dark:bg-black-700 dark:border-black-600"></div>
-                <div className="py-8 px-4 mt-10 rounded-lg max-w-[1380px] dark:bg-black-700 bg-neutral-50 border dark:border-black-600 w-full mx-auto">
+                <div className="sticky top-0 flex items-center justify-between flex-grow h-20 px-3 border-b bg-neutral-50 dark:bg-black-700 dark:border-black-600">
+                    <div>
+                        <input
+                            placeholder="Serach terms..."
+                            className="h-10 duration-150 bg-transparent border-b outline-none focus:border-pink-600"
+                            type="text"
+                        />
+                    </div>
+                    <AdminAvatar
+                        name={session?.user?.name}
+                        image={session?.user?.image}
+                    />
+                </div>
+                <div className="py-8 px-4 mt-10 rounded-lg max-w-[1380px] dark:bg-black-700 bg-neutral-50 border dark:border-black-600 w-full mx-auto shadow-lg dark:shadow-pink-900/30">
                     {children}
                 </div>
             </div>
