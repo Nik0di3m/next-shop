@@ -1,3 +1,4 @@
+import console from "console";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { loginUser } from "../../../utils/login";
@@ -23,6 +24,7 @@ export default NextAuth({
                         name: userFromDb.user.name,
                         email: userFromDb.user.email,
                         image: userFromDb.user.image,
+                        role: userFromDb.user.role,
                     };
                 }
 
@@ -35,13 +37,17 @@ export default NextAuth({
         jwt: ({ token, user }) => {
             // first time jwt callback is run, user object is available
             if (user) {
+                // console.log("User from nextauth jwt:", user);
                 token.id = user.id;
+                token.role = user.role;
             }
 
             return token;
         },
         session: ({ session, token }) => {
             if (token) {
+                // console.log("Token from nextauth session:", token);
+
                 session.id = token.id;
             }
 

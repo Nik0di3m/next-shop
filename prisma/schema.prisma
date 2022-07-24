@@ -45,6 +45,12 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  role          UserRole  @default(user)
+}
+
+enum UserRole {
+  admin
+  user
 }
 
 model VerificationToken {
