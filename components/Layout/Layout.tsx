@@ -26,32 +26,27 @@ const Layout = ({ children }: Props) => {
     useEffect(() => setLogoColor(theme), [theme]);
 
     return (
-        <div className="flex w-full max-w-[100vw] h-[200vh]">
-            {/* <div className="absolute top-0 -right-40">
-                <Image
-                    src="/images/bg-gradient-mesh.png"
-                    alt=""
-                    width={800}
-                    height={800}
-                    className="opacity-50"
-                />
-            </div> */}
-            <div className="w-1/6 max-h-screen">
-                <div className="fixed top-0 left-0 flex flex-col w-1/6 h-screen border-r p-7 dark:border-black-600 dark:bg-black-700 bg-neutral-50">
-                    <div className="flex">
-                        <Logo
-                            fill={logoColor === "dark" ? "white" : "black"}
-                            width={4}
-                            height={4}
-                        />
-                    </div>
-                    <SideMenu />
-                    <div>
-                        <Switch />
-                    </div>
+        <div className="flex h-[300vh]">
+            <div className="sticky top-0 left-0 flex flex-col w-1/6 h-screen border-r p-7 dark:border-black-600 dark:bg-black-700 bg-neutral-50">
+                <div className="flex">
+                    <Logo
+                        fill={logoColor === "dark" ? "white" : "black"}
+                        width={4}
+                        height={4}
+                    />
+                </div>
+                <SideMenu />
+                <div>
+                    <Switch />
                 </div>
             </div>
-            {children}
+
+            <div className="w-full">
+                <div className="sticky top-0 flex flex-grow h-20 border-b bg-neutral-50 dark:bg-black-700 dark:border-black-600"></div>
+                <div className="py-8 px-4 mt-10 rounded-lg max-w-[1380px] dark:bg-black-700 bg-neutral-50 border dark:border-black-600 w-full mx-auto">
+                    {children}
+                </div>
+            </div>
         </div>
     );
 };
