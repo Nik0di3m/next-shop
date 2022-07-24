@@ -2,7 +2,6 @@ import { HomeIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { useRouter } from "next/router";
 
 interface SideMenuItemsProps {
     link: string;
@@ -20,8 +19,6 @@ const SideMenuItem = ({
     onClick,
 }: SideMenuItemsProps) => {
     const controls = useAnimation();
-
-    const router = useRouter();
 
     const animation = {
         initial: {
@@ -54,23 +51,24 @@ const SideMenuItem = ({
         controls.start("animate");
     }, []);
 
-    const handleClick = () => {
-        router.push(link);
-    };
-
     return (
-        <motion.div
-            variants={animation}
-            initial="initial"
-            animate={controls}
-            whileHover={hoverAnimation}
-            tabIndex={0}
-            onClick={handleClick}
-            className="flex items-center py-2 pl-10 space-x-8 border rounded-lg shadow-md cursor-pointer dark:border-black-500 border-neutral-300"
-        >
-            {icon}
-            <span className="text-lg font-medium">{text}</span>
-        </motion.div>
+        <div>
+            <Link className="block" href={link}>
+                <a>
+                    <motion.div
+                        variants={animation}
+                        initial="initial"
+                        animate={controls}
+                        whileHover={hoverAnimation}
+                        tabIndex={0}
+                        className="flex items-center py-2 pl-10 space-x-8 border rounded-lg shadow-md cursor-pointer dark:border-black-500 border-neutral-300"
+                    >
+                        {icon}
+                        <span className="text-lg font-medium">{text}</span>
+                    </motion.div>
+                </a>
+            </Link>
+        </div>
     );
 };
 
