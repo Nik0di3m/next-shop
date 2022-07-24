@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Layout from "../../components/Layout/Layout";
+import Layout from "../../../components/Layout/Layout";
 
-const Home: NextPage = () => {
+const Income: NextPage = () => {
     return (
         <>
             <Head>
@@ -13,9 +13,9 @@ const Home: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.png" />
             </Head>
-            <Layout>Admin Dashboard</Layout>
+            <Layout>Income</Layout>
         </>
     );
 };
 
-export default Home;
+export default Income;

@@ -32,7 +32,7 @@ const SideMenuItem = ({
             x: 0,
             opacity: 1,
             transition: {
-                duration: 2,
+                duration: 1,
                 delay: delay,
                 type: "spring",
                 stiffness: 100,

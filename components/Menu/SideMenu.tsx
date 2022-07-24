@@ -23,22 +23,22 @@ const MenuItems = [
     {
         title: "Customers",
         icon: <UserCircleIcon className="w-6 h-6" />,
-        link: "/admin",
+        link: "/admin/customers",
     },
     {
         title: "Orders",
         icon: <PencilAltIcon className="w-6 h-6" />,
-        link: "/admin",
+        link: "/admin/orders",
     },
     {
         title: "Income",
         icon: <CashIcon className="w-6 h-6" />,
-        link: "/admin",
+        link: "/admin/income",
     },
     {
         title: "SEO/SEM",
         icon: <PresentationChartLineIcon className="w-6 h-6" />,
-        link: "/admin",
+        link: "/admin/seo",
     },
 ];
 
