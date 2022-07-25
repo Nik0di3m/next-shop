@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Layout from "../../../components/Layout/Layout";
+import ProductTable from "../../../components/Table/ProductTable";
 
 const Products: NextPage = () => {
     return (
@@ -13,7 +14,9 @@ const Products: NextPage = () => {
                 />
                 <link rel="icon" type="image/png" href="/favicon.png" />
             </Head>
-            <Layout>Product</Layout>
+            <Layout>
+                <ProductTable />
+            </Layout>
         </>
     );
 };
