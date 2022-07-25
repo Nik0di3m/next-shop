@@ -39,7 +39,7 @@ const Layout = ({ children }: Props) => {
             <div className="w-full">
                 <Menu />
                 <div className="px-4">
-                    <div className="py-8 px-4 mt-10 rounded-lg max-w-[1380px] dark:bg-black-700 bg-neutral-50 border dark:border-black-600 w-full mx-auto shadow-lg dark:shadow-pink-900/30">
+                    <div className="py-8 mt-10 rounded-lg max-w-[1380px] dark:bg-black-700 bg-neutral-50 border dark:border-black-600 w-full mx-auto shadow-lg dark:shadow-pink-900/30">
                         {children}
                     </div>
                 </div>
