@@ -61,10 +61,12 @@ const SideMenuItem = ({
                         animate={controls}
                         whileHover={hoverAnimation}
                         tabIndex={0}
-                        className="flex items-center py-2 pl-10 space-x-8 border rounded-lg shadow-md cursor-pointer dark:border-black-500 border-neutral-300"
+                        className="flex items-center justify-center w-10 py-2 border rounded-lg shadow-md cursor-pointer 2xl:justify-start 2xl:w-full 2xl:space-x-8 2xl:px-8 dark:border-black-500 border-neutral-300"
                     >
                         {icon}
-                        <span className="text-lg font-medium">{text}</span>
+                        <span className="hidden text-lg font-medium 2xl:block">
+                            {text}
+                        </span>
                     </motion.div>
                 </a>
             </Link>
