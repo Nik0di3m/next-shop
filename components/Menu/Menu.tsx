@@ -1,8 +1,24 @@
+import { useSession } from "next-auth/react";
 import React from "react";
+import AdminAvatar from "../Avatar/AdminAvatar";
 
 const Menu = () => {
+    const { data: session, status } = useSession();
+
     return (
-        <header className="sticky top-0 z-50 flex items-center justify-between h-20 px-3 py-4 border-b shadow-sm bg-neutral-800 border-zinc-900"></header>
+        <div className="sticky top-0 z-50 flex items-center justify-between flex-grow h-20 px-3 border-b bg-neutral-50 dark:bg-black-700 dark:border-black-600">
+            <div>
+                <input
+                    placeholder="Serach terms..."
+                    className="h-10 duration-150 bg-transparent border-b outline-none focus:border-pink-600"
+                    type="text"
+                />
+            </div>
+            <AdminAvatar
+                name={session?.user?.name}
+                image={session?.user?.image}
+            />
+        </div>
     );
 };
 
