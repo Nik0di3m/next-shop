@@ -15,6 +15,7 @@ enum Status {
 interface IProductTableItem {
     title: string;
     image: string;
+    category: string;
     price: number;
     status: Status;
     rating: {
@@ -38,6 +39,7 @@ const ProductTableItem: FC<IProductTableItem> = ({
     sales,
     trend,
     views,
+    category,
 }) => {
     return (
         <div className="table-row align-middle duration-150 ease-in border-b border-pink-400 dark:border-pink-900 hover:bg-neutral-200 dark:hover:bg-black-600">
@@ -58,6 +60,7 @@ const ProductTableItem: FC<IProductTableItem> = ({
                     </div>
                     <div className="w-52">
                         <h2>{title}</h2>
+                        <h4 className="mt-3 text-sm">{category}</h4>
                     </div>
                 </div>
             </div>
