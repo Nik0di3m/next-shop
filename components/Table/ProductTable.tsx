@@ -2,7 +2,7 @@ import ProductTableItem from "./ProductTableItem";
 
 enum Status {
     active = "active",
-    inactive = "inactive",
+    deactive = "deactive",
 }
 
 enum Direction {
@@ -33,7 +33,7 @@ const FakeItemsDb = [
         category: "Lampa wisząca",
         image: "/images/example/example_lamp_2.webp",
         price: 1359,
-        status: "inactive",
+        status: "deactive",
         rating: {
             value: 3.2,
             votes: 41,
@@ -84,7 +84,7 @@ const FakeItemsDb = [
         category: "Lampa wisząca",
         image: "/images/example/example_lamp_2.webp",
         price: 1359,
-        status: "inactive",
+        status: "deactive",
         rating: {
             value: 3.2,
             votes: 41,
@@ -135,7 +135,7 @@ const FakeItemsDb = [
         category: "Lampa wisząca",
         image: "/images/example/example_lamp_2.webp",
         price: 1359,
-        status: "inactive",
+        status: "deactive",
         rating: {
             value: 3.2,
             votes: 41,
@@ -186,7 +186,7 @@ const FakeItemsDb = [
         category: "Lampa wisząca",
         image: "/images/example/example_lamp_2.webp",
         price: 1359,
-        status: "inactive",
+        status: "deactive",
         rating: {
             value: 3.2,
             votes: 41,
@@ -237,7 +237,7 @@ const FakeItemsDb = [
         category: "Lampa wisząca",
         image: "/images/example/example_lamp_2.webp",
         price: 1359,
-        status: "inactive",
+        status: "deactive",
         rating: {
             value: 3.2,
             votes: 41,
@@ -288,7 +288,7 @@ const FakeItemsDb = [
         category: "Lampa wisząca",
         image: "/images/example/example_lamp_2.webp",
         price: 1359,
-        status: "inactive",
+        status: "deactive",
         rating: {
             value: 3.2,
             votes: 41,
@@ -339,7 +339,7 @@ const FakeItemsDb = [
         category: "Lampa wisząca",
         image: "/images/example/example_lamp_2.webp",
         price: 1359,
-        status: "inactive",
+        status: "deactive",
         rating: {
             value: 3.2,
             votes: 41,
@@ -390,7 +390,7 @@ const FakeItemsDb = [
         category: "Lampa wisząca",
         image: "/images/example/example_lamp_2.webp",
         price: 1359,
-        status: "inactive",
+        status: "deactive",
         rating: {
             value: 3.2,
             votes: 41,

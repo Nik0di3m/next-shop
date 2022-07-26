@@ -9,7 +9,7 @@ import CheckBox from "../Checkbox/CheckBox";
 
 enum Status {
     active = "active",
-    inactive = "inactive",
+    deactive = "deactive",
 }
 
 interface IProductTableItem {
@@ -75,7 +75,7 @@ const ProductTableItem: FC<IProductTableItem> = ({
                         </span>
                     ) : (
                         <span className="px-2 py-1 bg-red-600 rounded-lg shadow-md text-neutral-50">
-                            Inactive
+                            Deactive
                         </span>
                     )}
                 </div>
