@@ -49,6 +49,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
             ContentType: fileType,
             Expires: 600,
         };
+
+        console.log("Product id:", lastProductId);
         try {
             s3.getSignedUrl("putObject", s3Params, async (err, data) => {
                 if (err) {
