@@ -1,44 +1,72 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import S3 from "aws-sdk/clients/s3";
 import { getToken } from "next-auth/jwt";
 import { prisma } from "../../../lib/prisma";
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
-    const { method } = req;
-    const { product } = req.body;
+import console from "console";
+
+export default async function (req: NextApiRequest, res: NextApiResponse) {
+    // Get signedRequestUrl from AWS to image product upload
+
     const secret = process.env.NEXTAUTH_SECRET;
 
+    // Validate user credentials
     const token = await getToken({ req, secret });
 
-    if (token) {
-        if (method === "POST") {
-            try {
-                await prisma.product.create({
-                    data: {
-                        name: product.title,
-                        description: product.description,
-                        price: product.price,
-                        quantity: product.qty,
-                        isNew: product.isNew,
-                        isFutures: product.isFuture,
-                        slug: product.slug,
-                    },
-                });
-                return res.status(201).json({
-                    message: "Product added successfully",
-                });
-            } catch (error) {
-                return res
-                    .status(409)
-                    .json({ message: "Database conflict" });
-            }
+    console.log(token);
+
+    const s3Bucket = process.env.AWS_BUCKET;
+    const s3 = new S3({
+        region: "eu-central-1",
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        signatureVersion: "v4",
+    }); // Create a new instance of S3
+
+    const fileName: string = req.body.fileName;
+    const fileType = req.body.fileType;
+    const productIdFromBody = req.body.productId;
+
+    // Validate role in the token
+    if (token?.role == "admin") {
+        // Get last id of product from database
+        const lastProductId = await prisma.product
+            .findFirst({
+                orderBy: {
+                    id: "desc",
+                },
+                select: {
+                    id: true,
+                },
+            })
+            .then((res) => res?.id)
+            .catch((err) => err.message);
+
+        const s3Params = {
+            Bucket: s3Bucket,
+            Key: `products/${lastProductId + 1}/${fileName}`,
+            ContentType: fileType,
+            Expires: 600,
+        };
+        try {
+            s3.getSignedUrl("putObject", s3Params, async (err, data) => {
+                if (err) {
+                    return res.json({ success: false, error: err });
+                }
+                const returnData = {
+                    signedRequest: data,
+                    url: `https://${s3Bucket}.s3.amazonaws.com/products/${
+                        lastProductId + 1
+                    }/${fileName}`,
+                };
+
+                return res.status(200).json(returnData);
+            });
+        } catch (err) {
+            return res.status(500).json(err);
         }
     } else {
-        res.status(401).end();
+        // Not Signed in or is common user
+        res.status(401);
+        res.end();
     }
-
-    res.status(405).json({
-        message: "Only POST requests are allowed.",
-    });
 }
