@@ -14,11 +14,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     console.log(token);
 
-    const s3Bucket = process.env.AWS_BUCKET;
+    const s3Bucket = process.env.NEXT_AWS_BUCKET;
     const s3 = new S3({
         region: "eu-central-1",
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.NEXT_AWS_SECRET_ACCESS_KEY,
         signatureVersion: "v4",
     }); // Create a new instance of S3
 
