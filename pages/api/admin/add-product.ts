@@ -43,7 +43,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
         const s3Params = {
             Bucket: s3Bucket,
-            Key: `products/${lastProductId + 1}/${fileName}`,
+            Key: `products/${
+                lastProductId ? lastProductId + 1 : productIdFromBody
+            }/${fileName}`,
             ContentType: fileType,
             Expires: 600,
         };
@@ -55,7 +57,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
                 const returnData = {
                     signedRequest: data,
                     url: `https://${s3Bucket}.s3.amazonaws.com/products/${
-                        lastProductId + 1
+                        lastProductId ? lastProductId + 1 : productIdFromBody
                     }/${fileName}`,
                 };
 
